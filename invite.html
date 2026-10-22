@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>캘린더 초대 · 우리 캘린더</title>
+<title>캘린더 초대 · 드림 캘린더</title>
 <style>
   :root {
     --bg: #f4f6fa; --card: #ffffff; --text: #1b1f27; --sub: #5b6475; --line: #e6e9f0;
@@ -44,7 +44,7 @@
 </head>
 <body>
 <main>
-  <div class="brand">📅 우리 캘린더</div>
+  <div class="brand">📅 드림 캘린더</div>
   <div id="status" class="card center">초대장을 확인하는 중…</div>
   <div id="card" class="card hidden">
     <div class="badge">📅</div>
@@ -61,7 +61,7 @@
     <div class="steps">
       <b>앱이 열리지 않거나 PC에서 참여할 때</b>
       <ol>
-        <li>우리 캘린더 앱을 설치하고 로그인 (구글 계정 가능)</li>
+        <li>드림 캘린더 앱을 설치하고 로그인 (구글 계정 가능)</li>
         <li><b>캘린더 관리 → 초대 코드로 참여하기</b></li>
         <li>위의 초대 코드 입력</li>
       </ol>
@@ -71,7 +71,6 @@
 <script>
   const SUPABASE_URL = "https://bsuwflqkrpydkapixjmz.supabase.co";
   const PUBLISHABLE_KEY = "sb_publishable_qgeBKPs3QdBxGwoRBabmGg_CY5a1Fwc";
-  const APP_PACKAGE = "com.yp.woori_calendar";
   const $ = (id) => document.getElementById(id);
   const params = new URLSearchParams(location.search);
   const code = (params.get("code") || "").trim().toUpperCase();
@@ -80,7 +79,7 @@
     const q = `code=${encodeURIComponent(code)}`;
     if (/android/i.test(navigator.userAgent)) {
       const fallback = location.origin + location.pathname + "?" + q + "&noapp=1";
-      return `intent://invite?${q}#Intent;scheme=wooricalendar;package=${APP_PACKAGE};` +
+      return `intent://invite?${q}#Intent;scheme=wooricalendar;` +
         `S.browser_fallback_url=${encodeURIComponent(fallback)};end`;
     }
     return `wooricalendar://invite?${q}`;
@@ -100,7 +99,7 @@
       const inv = rows[0];
       const color = "#" + (Number(inv.calendar_color) & 0xffffff).toString(16).padStart(6, "0");
       document.documentElement.style.setProperty("--cal", color);
-      document.title = `${inv.calendar_name} 초대 · 우리 캘린더`;
+      document.title = `${inv.calendar_name} 초대 · 드림 캘린더`;
       $("inviter").textContent = inv.inviter_name || "누군가";
       $("calName").textContent = `"${inv.calendar_name}" 캘린더`;
       $("role").textContent = inv.role === "editor" ? "함께 보고 편집하기" : "일정 보기";

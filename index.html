@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>일정 상세 · 우리 캘린더</title>
+<title>일정 상세 · 드림 캘린더</title>
 <style>
   :root {
     --bg: #f4f6fa; --card: #ffffff; --text: #1b1f27; --sub: #5b6475; --line: #e6e9f0;
@@ -43,7 +43,7 @@
 </style>
 </head>
 <body>
-<header>📅 우리 캘린더</header>
+<header>📅 드림 캘린더</header>
 <main>
   <div id="status" class="center">불러오는 중…</div>
   <article id="card" class="card hidden">
@@ -62,7 +62,6 @@
 </div>
 <script>
   const SUPABASE_URL = "https://bsuwflqkrpydkapixjmz.supabase.co";
-  const APP_PACKAGE = "com.yp.woori_calendar";
   const $ = (id) => document.getElementById(id);
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || "";
@@ -79,7 +78,7 @@
     if (/android/i.test(navigator.userAgent)) {
       // 앱이 없으면 이 페이지로 돌아오면서 안내 문구 표시
       const fallback = location.origin + location.pathname + "?" + q + "&noapp=1";
-      return `intent://event?${q}#Intent;scheme=wooricalendar;package=${APP_PACKAGE};` +
+      return `intent://event?${q}#Intent;scheme=wooricalendar;` +
         `S.browser_fallback_url=${encodeURIComponent(fallback)};end`;
     }
     return `wooricalendar://event?${q}`;
@@ -92,7 +91,7 @@
       if (res.status === 404) { $("status").textContent = "삭제되었거나 찾을 수 없는 일정입니다."; return; }
       if (!res.ok) throw new Error(res.status);
       const ev = await res.json();
-      document.title = `${ev.title} · 우리 캘린더`;
+      document.title = `${ev.title} · 드림 캘린더`;
       if (ev.color) document.documentElement.style.setProperty("--event", ev.color);
       $("title").textContent = ev.title;
       $("when").textContent = ev.when;
